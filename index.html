@@ -3,99 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aprende sobre DNS</title>
+  <title>DNS Edu Pro</title>
+  <!-- Estilos -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
   <style>
-    /* Fuente tecnológica */
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    :root {
+      --primary: #00ffe0;
+      --secondary: #00ccb3;
+      --bg-light: #f5f5f5;
+      --bg-dark: #0f2027;
+      --text-light: #ffffff;
+      --text-dark: #222222;
     }
-
-    header {
-      padding: 40px 20px;
-      text-align: center;
+    [data-theme="light"] {
+      --bg-base: var(--bg-light);
+      --text-base: var(--text-dark);
     }
-
-    h1 {
-      font-size: 2.8em;
-      color: #00ffe0;
-      text-shadow: 0 0 8px #00ffe0;
+    [data-theme="dark"] {
+      --bg-base: var(--bg-dark);
+      --text-base: var(--text-light);
     }
-
-    .container {
-      max-width: 800px;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.4);
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      margin-bottom: 40px;
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body, html {
+      font-family:'Roboto'; background:var(--bg-base);
+      color:var(--text-base);
+      scroll-behavior:smooth; overflow-x:hidden;
     }
-
-    h2 {
-      color: #00ffcc;
-      margin-top: 30px;
+    nav {
+      position:fixed; top:0; width:100%;
+      background:rgba(0,0,0,0.6); padding:15px 30px;
+      display:flex; justify-content:space-between;
+      align-items:center; backdrop-filter:blur(6px); z-index:10;
     }
-
-    p {
-      line-height: 1.6;
-      font-size: 1.1em;
+    nav h1 { font-family:'Orbitron'; color:var(--primary); }
+    nav a {
+      color:var(--text-base); margin-left:20px;
+      text-decoration:none; font-weight:bold;
+      transition:color .3s;
     }
-
-    .btn {
-      margin-top: 30px;
-      display: inline-block;
-      padding: 12px 24px;
-      background: #00ffe0;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 0 10px #00ffe0;
-      transition: all 0.3s ease;
+    nav a:hover { color:var(--primary); }
+    .theme-switch {
+      cursor:pointer; font-size:1.2em;
+      user-select:none;
     }
-
+    #particles-js { position:fixed; width:100%; height:100%; z-index:-1; }
+    .section {
+      max-width:900px; margin:100px auto; padding:40px;
+      background-color: rgba(255,255,255,0.05);
+      border-radius:15px;
+      box-shadow:0 0 20px rgba(0,255,255,0.05);
+      transition:transform .3s, box-shadow .3s, opacity .6s ease, transform .6s ease;
+      opacity:0; transform:translateY(50px);
+    }
+    .section.visible { opacity:1; transform:translateY(0); }
+    .section:hover { box-shadow:0 0 25px rgba(0,255,255,0.2); }
+    h2 { font-size:2em; margin-bottom:20px; color:var(--primary); }
+    p { line-height:1.6; font-size:1.1em; }
+    .btn { display:inline-block; margin-top:30px;padding:12px 25px;
+      background:var(--primary);color:#000;border-radius:8px;font-weight:bold;
+      text-decoration:none;box-shadow:0 0 12px var(--primary);
+      transition:all .3s;
+    }
     .btn:hover {
-      background: #00ccb3;
-      box-shadow: 0 0 15px #00ccb3;
+      background:var(--secondary);transform:scale(1.05);
+      box-shadow:0 0 20px var(--secondary);
     }
-
     footer {
-      padding: 20px;
-      text-align: center;
-      font-size: 0.9em;
-      color: #cccccc;
+      text-align:center;padding:30px;font-size:.9em;
+      color:#aaa;background:rgba(0,0,0,0.4);
+    }
+    .quiz { margin-top:20px; }
+    .quiz-question { margin-bottom:10px; }
+    .quiz-answer { display:block; margin:5px 0; cursor:pointer;
+      background:rgba(255,255,255,0.1); padding:10px; border-radius:6px;
+      transition:background .3s;
+    }
+    .quiz-answer:hover { background:rgba(255,255,255,0.2); }
+    #result { margin-top:15px; font-weight:bold; }
+    canvas { max-width:100%; }
+    @media(max-width:768px){
+      nav { flex-direction:column; align-items:flex-start; }
+      .section { margin:80px 20px; padding:20px; }
     }
   </style>
 </head>
-<body>
-  <header>
-    <h1>🌐 Aprende sobre DNS</h1>
-  </header>
+<body data-theme="dark">
 
-  <div class="container">
+  <!-- Fondo y navegación -->
+  <div id="particles-js"></div>
+  <nav>
+    <h1>DNS Edu Pro</h1>
+    <div>
+      <a href="#que-es">¿Qué es?</a>
+      <a href="#funcionamiento">Funcionamiento</a>
+      <a href="#graficos">Gráficos</a>
+      <a href="#quiz">Quiz</a>
+    </div>
+    <span class="theme-switch" id="theme-toggle">🌓</span>
+  </nav>
+
+  <!-- Secciones -->
+  <div id="que-es" class="section">
     <h2>¿Qué es DNS?</h2>
-    <p>DNS (Domain Name System) es como la guía telefónica de Internet. Convierte nombres de dominio como <strong>www.ejemplo.com</strong> en direcciones IP que los navegadores usan para cargar páginas web.</p>
+    <div id="lottie-animation1"></div>
+    <p>El DNS (Sistema de Nombres de Dominio) traduce nombres como <strong>www.ejemplo.com</strong> a direcciones IP.</p>
+  </div>
 
-    <h2>¿Por qué es importante?</h2>
-    <p>Sin el DNS, tendrías que recordar largas cadenas de números (como 192.168.1.1) para visitar tus sitios favoritos. DNS hace que Internet sea más accesible y usable.</p>
-
+  <div id="funcionamiento" class="section">
     <h2>¿Cómo funciona?</h2>
-    <p>Cuando escribes una dirección web, tu computadora pregunta a un servidor DNS cuál es la IP correspondiente. Ese servidor responde con la IP, y tu navegador se conecta al sitio web.</p>
+    <div id="lottie-animation2"></div>
+    <p>Tu navegador consulta un servidor DNS que responde con la dirección IP, permitiendo la conexión.</p>
+    <a class="btn" href="https://es.wikipedia.org/wiki/Domain_Name_System" target="_blank">Saber más</a>
+  </div>
 
-    <a href="https://es.wikipedia.org/wiki/Domain_Name_System" target="_blank" class="btn">Saber más</a>
+  <div id="graficos" class="section">
+    <h2>Tipos de registros DNS</h2>
+    <canvas id="dnsChart"></canvas>
+  </div>
+
+  <div id="quiz" class="section">
+    <h2>Quiz interactivo</h2>
+    <div class="quiz">
+      <div class="quiz-question">¿Qué convierte DNS?</div>
+      <div class="quiz-answer">a) IP a dominio</div>
+      <div class="quiz-answer">b) Dominio a IP</div>
+      <div class="quiz-answer">c) Puerto a dominio</div>
+      <div id="result"></div>
+    </div>
   </div>
 
   <footer>
-    © 2025 Aprende DNS | Proyecto educativo
+    © 2025 Aprende DNS — Profesional e interactivo
   </footer>
+
+  <!-- Bibliotecas -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.11.3/lottie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Script principal -->
+  <script>
+    // Partículas
+    particlesJS("particles-js", {
+      particles: { number:{value:60}, color:{value:"#00ffe0"},
+        shape:{type:"circle"}, opacity:{value:0.5},
+        size:{value:3}, move:{enable:true,speed:1}
+      },
+      interactivity:{ events:{ onhover:{enable:true,mode:"repulse"} } }
+    });
+
+    // Scroll reveal
+    document.querySelectorAll('.section').forEach(s => {
+      window.addEventListener('scroll', () => {
+        if (s.getBoundingClientRect().top < window.innerHeight * .85) {
+          s.classList.add('visible');
+        }
+      });
+      window.dispatchEvent(new Event('scroll'));
+    });
+
+    // Modo oscuro/claro
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('click', () => {
+      const doc = document.body;
+      const current = doc.getAttribute('data-theme');
+      const next = current === 'dark'? 'light' : 'dark';
+      doc.setAttribute('data-theme', next);
+    });
+
+    // Lottie animaciones
+    lottie.loadAnimation({
+      container: document.getElementById('lottie-animation1'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://assets7.lottiefiles.com/packages/lf20_hf2hkwat.json'
+    });
+    lottie.loadAnimation({
+      container: document.getElementById('lottie-animation2'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://assets7.lottiefiles.com/packages/lf20_i1d9jbrz.json'
+    });
+
+    // Chart.js
+    const ctx = document.getElementById('dnsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['A', 'AAAA', 'CNAME', 'MX', 'TXT'],
+        datasets: [{
+          label: 'Tipo de registros',
+          data: [30, 15, 25, 20, 10],
+          backgroundColor: ['#00ffe0','#00ccb3','#008b8b','#005f5f','#003f3f']
+        }]
+      },
+      options: { responsive:true }
+    });
+
+    // Quiz simple
+    document.querySelectorAll('.quiz-answer').forEach(a => {
+      a.addEventListener('click', () => {
+        const ok = a.textContent.startsWith('b');
+        const res = document.getElementById('result');
+        res.textContent = ok ? '✅ Correcto: DNS convierte dominio → IP' : '❌ Incorrecto, intenta de nuevo';
+      });
+    });
+  </script>
 </body>
 </html>
