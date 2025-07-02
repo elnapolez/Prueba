@@ -1,11 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aprende sobre DNS</title>
+  <style>
+    /* Fuente tecnológica */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      color: #00ffe0;
+      text-shadow: 0 0 8px #00ffe0;
+    }
+
+    .container {
+      max-width: 800px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      color: #00ffcc;
+      margin-top: 30px;
+    }
+
+    p {
+      line-height: 1.6;
+      font-size: 1.1em;
+    }
+
+    .btn {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 12px 24px;
+      background: #00ffe0;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffe0;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #00ccb3;
+      box-shadow: 0 0 15px #00ccb3;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #cccccc;
+    }
+  </style>
 </head>
 <body>
-    <h1>Aprendiendo dns, by javier</h1>
+  <header>
+    <h1>🌐 Aprende sobre DNS</h1>
+  </header>
+
+  <div class="container">
+    <h2>¿Qué es DNS?</h2>
+    <p>DNS (Domain Name System) es como la guía telefónica de Internet. Convierte nombres de dominio como <strong>www.ejemplo.com</strong> en direcciones IP que los navegadores usan para cargar páginas web.</p>
+
+    <h2>¿Por qué es importante?</h2>
+    <p>Sin el DNS, tendrías que recordar largas cadenas de números (como 192.168.1.1) para visitar tus sitios favoritos. DNS hace que Internet sea más accesible y usable.</p>
+
+    <h2>¿Cómo funciona?</h2>
+    <p>Cuando escribes una dirección web, tu computadora pregunta a un servidor DNS cuál es la IP correspondiente. Ese servidor responde con la IP, y tu navegador se conecta al sitio web.</p>
+
+    <a href="https://es.wikipedia.org/wiki/Domain_Name_System" target="_blank" class="btn">Saber más</a>
+  </div>
+
+  <footer>
+    © 2025 Aprende DNS | Proyecto educativo
+  </footer>
 </body>
 </html>
